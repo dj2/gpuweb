@@ -109,7 +109,7 @@ module.exports = grammar({
         struct_decl: $ => seq($.struct, $.ident, $.struct_body_decl),
         struct_body_decl: $ => seq($.brace_left, optional(repeat1(seq($.struct_member, $.comma))), $.struct_member, optional($.comma), $.brace_right),
         struct_member: $ => seq(optional(repeat1($.attribute)), $.member_ident, $.colon, $.type_decl),
-        texture_sampler_types: $ => choice(
+        texture_and_sampler_types: $ => choice(
             $.sampler_type,
             $.depth_texture_type,
             seq($.sampled_texture_type, $.less_than, $.type_decl, $.greater_than),
@@ -158,7 +158,7 @@ module.exports = grammar({
             seq($.pointer, $.less_than, $.address_space, $.comma, $.type_decl, optional(seq($.comma, $.access_mode)), $.greater_than),
             $.array_type_decl,
             seq($.atomic, $.less_than, $.type_decl, $.greater_than),
-            $.texture_sampler_types
+            $.texture_and_sampler_types
         ),
         vec_prefix: $ => choice(
             $.vec2,
@@ -201,7 +201,8 @@ module.exports = grammar({
             $.ident,
             $.type_decl_without_ident,
             $.vec_prefix,
-            $.mat_prefix
+            $.mat_prefix,
+            $.array
         ),
         paren_expression: $ => seq($.paren_left, $.expression, $.paren_right),
         argument_expression_list: $ => seq($.paren_left, optional(seq(optional(repeat1(seq($.expression, $.comma))), $.expression, optional($.comma))), $.paren_right),
@@ -299,11 +300,10 @@ module.exports = grammar({
         ),
         increment_statement: $ => seq($.lhs_expression, $.plus_plus),
         decrement_statement: $ => seq($.lhs_expression, $.minus_minus),
-        if_statement: $ => seq($.if, $.expression, $.compound_statement, optional(seq($.else, $.else_statement))),
-        else_statement: $ => choice(
-            $.compound_statement,
-            $.if_statement
-        ),
+        if_statement: $ => seq($.if_clause, optional(repeat1($.else_if_clause)), optional($.else_clause)),
+        if_clause: $ => seq($.if, $.expression, $.compound_statement),
+        else_if_clause: $ => seq($.else, $.if, $.expression, $.compound_statement),
+        else_clause: $ => seq($.else, $.compound_statement),
         switch_statement: $ => seq($.switch, $.expression, $.brace_left, repeat1($.switch_body), $.brace_right),
         switch_body: $ => choice(
             seq($.case, $.case_selectors, optional($.colon), $.case_compound_statement),
