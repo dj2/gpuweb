@@ -409,6 +409,14 @@ scanner_components[scanner_rule.name()]["_comment"] = [["`'//'`", '`/.*/`']]
 
 # Following sections are to allow out-of-order per syntactic grammar appearance of rules
 
+for name in scanner_components[scanner_rule.name()]:
+    rules = scanner_components[scanner_rule.name()][name]
+    print(name)
+    for rule in rules:
+        print("  |", end = '')
+        for r in rule:
+            print(" " + r, end = "")
+        print("\n")
 
 rule_skip = set()
 
