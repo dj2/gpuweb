@@ -1238,14 +1238,15 @@ Possible extra rowspan handling
 			grid-column: 2;
 			width: auto;
 			margin-right: 1rem;
+			border-bottom: 3px solid transparent;
+			margin-bottom: -3px;
 		}
 		#toc .content:hover,
 		#toc .content:focus {
 			background: rgba(75%, 75%, 75%, .25);
 			background: var(--a-hover-bg);
-			border-bottom: 3px solid #054572;
-			border-bottom: 3px solid var(--toclink-underline);
-			margin-bottom: -3px;
+			border-bottom-color: #054572;
+			border-bottom-color: var(--toclink-underline);
 		}
 		#toc li li li .content {
 			margin-left: 1rem;
@@ -1487,7 +1488,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version d6f2d6445, updated Tue Jan 17 11:25:25 2023 -0800" name="generator">
+  <meta content="Bikeshed version d5d58a306, updated Fri Jan 26 16:12:28 2024 -0800" name="generator">
   <link href="https://gpuweb.github.io/gpuweb/correspondence/" rel="canonical">
 <style>
 code {
@@ -1500,8 +1501,7 @@ code {
     overflow-x: unset;
 }
 </style>
-<style>/* style-autolinks */
-
+<style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
     font-size: inherit;
@@ -1561,9 +1561,17 @@ pre .property::before, pre .property::after {
 
 [data-link-type=biblio] {
     white-space: pre;
-}</style>
-<style>/* style-colors */
+}
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        --selflink-text: black;
+        --selflink-bg: silver;
+        --selflink-hover-text: white;
+    }
+}
+</style>
+<style>/* Boilerplate: style-colors */
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
 :root {
     color-scheme: light dark;
@@ -1670,117 +1678,7 @@ pre .property::before, pre .property::after {
     --outdated-shadow: red;
 
     --editedrec-bg: darkorange;
-}</style>
-<style>/* style-counters */
-
-body {
-    counter-reset: example figure issue;
 }
-.issue {
-    counter-increment: issue;
-}
-.issue:not(.no-marker)::before {
-    content: "Issue " counter(issue);
-}
-
-.example {
-    counter-increment: example;
-}
-.example:not(.no-marker)::before {
-    content: "Example " counter(example);
-}
-.invalid.example:not(.no-marker)::before,
-.illegal.example:not(.no-marker)::before {
-    content: "Invalid Example" counter(example);
-}
-
-figcaption {
-    counter-increment: figure;
-}
-figcaption:not(.no-marker)::before {
-    content: "Figure " counter(figure) " ";
-}</style>
-<style>/* style-issues */
-
-a[href].issue-return {
-    float: right;
-    float: inline-end;
-    color: var(--issueheading-text);
-    font-weight: bold;
-    text-decoration: none;
-}
-</style>
-<style>/* style-md-lists */
-
-/* This is a weird hack for me not yet following the commonmark spec
-   regarding paragraph and lists. */
-[data-md] > :first-child {
-    margin-top: 0;
-}
-[data-md] > :last-child {
-    margin-bottom: 0;
-}</style>
-<style>/* style-selflinks */
-
-:root {
-    --selflink-text: white;
-    --selflink-bg: gray;
-    --selflink-hover-text: black;
-}
-.heading, .issue, .note, .example, li, dt {
-    position: relative;
-}
-a.self-link {
-    position: absolute;
-    top: 0;
-    left: calc(-1 * (3.5rem - 26px));
-    width: calc(3.5rem - 26px);
-    height: 2em;
-    text-align: center;
-    border: none;
-    transition: opacity .2s;
-    opacity: .5;
-}
-a.self-link:hover {
-    opacity: 1;
-}
-.heading > a.self-link {
-    font-size: 83%;
-}
-.example > a.self-link,
-.note > a.self-link,
-.issue > a.self-link {
-    /* These blocks are overflow:auto, so positioning outside
-       doesn't work. */
-    left: auto;
-    right: 0;
-}
-li > a.self-link {
-    left: calc(-1 * (3.5rem - 26px) - 2em);
-}
-dfn > a.self-link {
-    top: auto;
-    left: auto;
-    opacity: 0;
-    width: 1.5em;
-    height: 1.5em;
-    background: var(--selflink-bg);
-    color: var(--selflink-text);
-    font-style: normal;
-    transition: opacity .2s, background-color .2s, color .2s;
-}
-dfn:hover > a.self-link {
-    opacity: 1;
-}
-dfn > a.self-link:hover {
-    color: var(--selflink-hover-text);
-}
-
-a.self-link::before            { content: "¶"; }
-.heading > a.self-link::before { content: "§"; }
-dfn > a.self-link::before      { content: "#"; }
-</style>
-<style>/* style-darkmode */
 
 @media (prefers-color-scheme: dark) {
     :root {
@@ -1893,19 +1791,119 @@ dfn > a.self-link::before      { content: "#"; }
        which is quite common in practice... */
     img { background: white; }
 }
-@media (prefers-color-scheme: dark) {
-    :root {
-        --selflink-text: black;
-        --selflink-bg: silver;
-        --selflink-hover-text: white;
-    }
+</style>
+<style>/* Boilerplate: style-counters */
+body {
+    counter-reset: example figure issue;
 }
+.issue {
+    counter-increment: issue;
+}
+.issue:not(.no-marker)::before {
+    content: "Issue " counter(issue);
+}
+
+.example {
+    counter-increment: example;
+}
+.example:not(.no-marker)::before {
+    content: "Example " counter(example);
+}
+.invalid.example:not(.no-marker)::before,
+.illegal.example:not(.no-marker)::before {
+    content: "Invalid Example" counter(example);
+}
+
+figcaption {
+    counter-increment: figure;
+}
+figcaption:not(.no-marker)::before {
+    content: "Figure " counter(figure) " ";
+}
+</style>
+<style>/* Boilerplate: style-issues */
+a[href].issue-return {
+    float: right;
+    float: inline-end;
+    color: var(--issueheading-text);
+    font-weight: bold;
+    text-decoration: none;
+}
+</style>
+<style>/* Boilerplate: style-md-lists */
+/* This is a weird hack for me not yet following the commonmark spec
+   regarding paragraph and lists. */
+[data-md] > :first-child {
+    margin-top: 0;
+}
+[data-md] > :last-child {
+    margin-bottom: 0;
+}
+</style>
+<style>/* Boilerplate: style-selflinks */
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
+.heading, .issue, .note, .example, li, dt {
+    position: relative;
+}
+a.self-link {
+    position: absolute;
+    top: 0;
+    left: calc(-1 * (3.5rem - 26px));
+    width: calc(3.5rem - 26px);
+    height: 2em;
+    text-align: center;
+    border: none;
+    transition: opacity .2s;
+    opacity: .5;
+}
+a.self-link:hover {
+    opacity: 1;
+}
+.heading > a.self-link {
+    font-size: 83%;
+}
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
+}
+li > a.self-link {
+    left: calc(-1 * (3.5rem - 26px) - 2em);
+}
+dfn > a.self-link {
+    top: auto;
+    left: auto;
+    opacity: 0;
+    width: 1.5em;
+    height: 1.5em;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
+    font-style: normal;
+    transition: opacity .2s, background-color .2s, color .2s;
+}
+dfn:hover > a.self-link {
+    opacity: 1;
+}
+dfn > a.self-link:hover {
+    color: var(--selflink-hover-text);
+}
+
+a.self-link::before            { content: "¶"; }
+.heading > a.self-link::before { content: "§"; }
+dfn > a.self-link::before      { content: "#"; }
 </style>
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebGPU Correspondence Reference</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Document, <time class="dt-updated" datetime="2023-03-09">9 March 2023</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Living Document, <time class="dt-updated" datetime="2024-02-05">5 February 2024</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1920,7 +1918,7 @@ dfn > a.self-link::before      { content: "#"; }
     </dl>
    </div>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 the Contributors to the WebGPU Correspondence Reference Specification, published by the <a href="http://www.w3.org/community/gpu/">GPU for the Web Community Group</a> under the <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>.
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2024 the Contributors to the WebGPU Correspondence Reference Specification, published by the <a href="http://www.w3.org/community/gpu/">GPU for the Web Community Group</a> under the <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>.
 A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/">summary</a> is available. </p>
    <hr title="Separator for header">
   </div>
@@ -2008,7 +2006,7 @@ User agents are not required to use these formulas and may expose whatever they 
      <tr>
       <th><code>maxBufferSize</code> 
       <td><a href="https://github.com/gpuweb/gpuweb/issues/1371">#1371</a> 
-      <td><code>maxMemoryAllocationSize</code> 
+      <td><code>min(maxMemoryAllocationSize, maxBufferSize)</code> 
       <td><code>MTLDevice.maxBufferLength</code> 
       <td><em>No documented limit.</em> Implementations could use a constant, or determine this based on the amount of VRAM on the system as D3D11 FL11’s <a href="https://learn.microsoft.com/en-us/windows/win32/direct3d11/overviews-direct3d-11-resources-limits">soft resource size limit</a> does. 
      <tr>
@@ -2089,11 +2087,6 @@ User agents are not required to use these formulas and may expose whatever they 
       <td><code>maxVertexInputBindings</code> 
       <td><a href="https://docs.microsoft.com/en-ca/windows/win32/api/d3d12/ns-d3d12-d3d12_input_element_desc">16</a> 
      <tr>
-      <th><code>maxFragmentCombinedOutputResources</code> 
-      <td><a href="https://github.com/gpuweb/gpuweb/pull/3829">#3829</a>, <a href="https://github.com/gpuweb/gpuweb/issues/1343">#1343</a> 
-      <td><code>maxFragmentCombinedOutputResources</code> 
-      <td colspan="2"><em>No separate limit.</em> Use <code>maxColorAttachments + maxStorageBuffersPerShaderStage + maxStorageTexturesPerShaderStage</code>. 
-     <tr>
       <th><code>maxUniformBufferBindingSize</code> 
       <td><a href="https://github.com/gpuweb/gpuweb/issues/803">#803</a> 
       <td><code>maxUniformBufferRange</code> 
@@ -2144,7 +2137,7 @@ User agents are not required to use these formulas and may expose whatever they 
       <th><code>maxColorAttachments</code> 
       <td><a href="https://github.com/gpuweb/gpuweb/issues/2820">#2820</a> 
       <td><code>min(maxColorAttachments, maxFragmentOutputAttachments, maxFragmentCombinedOutputResources)</code> 
-      <td><code>Maximum number of color render targets per render pass descriptor</code> 
+      <td><code>Maximum number of color render targets per render     pass descriptor</code> 
       <td>8 = <code>D3D12_SIMULTANEOUS_RENDER_TARGET_COUNT</code> 
      <tr>
       <th><code>maxComputeWorkgroupStorageSize</code> 
@@ -2220,7 +2213,7 @@ User agents are not required to use these formulas and may expose whatever they 
       on = !document.body.classList.contains('toc-sidebar');
     }
 
-    /* Don’t scroll to compensate for the ToC if we’re above it already. */
+    /* Don't scroll to compensate for the ToC if we're above it already. */
     var headY = 0;
     var head = document.querySelector('.head');
     if (head) {
@@ -2251,16 +2244,16 @@ User agents are not required to use these formulas and may expose whatever they 
       }
       if (toggle.matches(':hover')) {
         /* Unfocus button when not using keyboard navigation,
-           because I don’t know where else to send the focus. */
+           because I don't know where else to send the focus. */
         toggle.blur();
       }
     }
   }
 
   function createSidebarToggle() {
-    /* Create the sidebar toggle in JS; it shouldn’t exist when JS is off. */
+    /* Create the sidebar toggle in JS; it shouldn't exist when JS is off. */
     var toggle = document.createElement('a');
-      /* This should probably be a button, but appearance isn’t standards-track.*/
+      /* This should probably be a button, but appearance isn't standards-track.*/
     toggle.id = 'toc-toggle';
     toggle.class = 'toc-toggle';
     toggle.href = '#toc';
@@ -2276,7 +2269,7 @@ User agents are not required to use these formulas and may expose whatever they 
     toggle.addEventListener('click', toggler, false);
 
 
-    /* Get <nav id=toc-nav>, or make it if we don’t have one. */
+    /* Get <nav id=toc-nav>, or make it if we don't have one. */
     var tocNav = document.getElementById('toc-nav');
     if (!tocNav) {
       tocNav = document.createElement('p');
@@ -2284,7 +2277,7 @@ User agents are not required to use these formulas and may expose whatever they 
       /* Prepend for better keyboard navigation */
       document.body.insertBefore(tocNav, document.body.firstChild);
     }
-    /* While we’re at it, make sure we have a Jump to Toc link. */
+    /* While we're at it, make sure we have a Jump to Toc link. */
     var tocJump = document.getElementById('toc-jump');
     if (!tocJump) {
       tocJump = document.createElement('a');
@@ -2312,7 +2305,7 @@ User agents are not required to use these formulas and may expose whatever they 
     }, false);
   }
   else {
-    console.warn("Can’t find Table of Contents. Please use <nav id='toc'> around the ToC.");
+    console.warn("Can't find Table of Contents. Please use <nav id='toc'> around the ToC.");
   }
 
   /* Wrap tables in case they overflow */
